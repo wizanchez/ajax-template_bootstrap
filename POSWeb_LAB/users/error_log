@@ -1,0 +1,2 @@
+[25-Nov-2010 09:39:37] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/jvmcompa/public_html/suiteerp/emssanar/POSWeb/users/index.php:10) in /home/jvmcompa/public_html/suiteerp/emssanar/POSWeb/users/index.php on line 25
+[25-Nov-2010 09:49:24] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/jvmcompa/public_html/suiteerp/emssanar/POSWeb/users/index.php:10) in /home/jvmcompa/public_html/suiteerp/emssanar/POSWeb/users/index.php on line 25

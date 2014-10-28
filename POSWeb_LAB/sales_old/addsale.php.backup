@@ -1,0 +1,574 @@
+<?php
+session_start();
+$sale_id = $_POST['sale_id'];
+$jh = $_POST['jh'];
+$totvta = $_POST[''];
+$tots = $_POST['totvta'];
+$customerid = $_POST['customerid'];
+$devolucionid = $_POST['devolucionid'];
+$global_sale_discount = $_POST['global_sale_discount'];
+$sale_discount = $_POST['sale_discount'];
+$subtotalvta = $_POST['subtotalvta'];
+$sub_tot = $_POST['sub_tot'];
+$taxtot = $_POST['taxtot'];
+$imp_tot = $_POST['imp_tot'];
+$descuentshow = $_POST['descuentshow'];
+$descuent = $_POST['descuent'];
+$descuentporc = $_POST['descuentporc'];
+$saleTotalCost = $_POST['saleTotalCost'];
+$amountpay = $_POST['amountpay'];
+$changep = $_POST['changep'];
+$j = $_POST['j'];
+$cliente = $_POST['cliente'];
+$totalvta = $_POST['totalvta'];
+$totalItemsPurchased = $_POST['totalItemsPurchased'];
+$totalTax = $_POST['totalTax'];
+$finalTotal = $_POST['finalTotal'];
+$paymethodid = $_POST['paymethodid'];
+$change = $_POST['change'];
+$paymethodname = $_POST['paymethodname'];
+$amount = $_POST['amount'];
+$doc_num = $_POST['doc_num'];
+$auth_num = $_POST['auth_num'];
+$nummp = $_POST['nummp'];
+$comment = $_POST['comment'];
+$claveok = $_POST['claveok'];
+?>
+
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="../../erp/css/print.css" media="print">
+</head>
+<?
+/* $numberit=count($_SESSION['items_in_sale']);
+for($g=0;$g<$numberit;$g++)
+{ 
+echo $item_info_1=explode(' ',$_SESSION['items_in_sale'][$g]); echo '<br>';
+$rc_cronic=mysql_query('select id, cronico, item_name from pos_items where item_number = '.$item_info_1[0].'',$conn_2);
+$rowcronic=mysql_fetch_assoc($rc_cronic);
+echo $rowcronic["item_name"].'  victor '.$rowcronic["cronico"]; echo '<br>';
+}
+$kk = 0;
+if($kk == 2)
+$func = 'pedircust()';
+else $func = '';*/
+?>
+<body>
+<?php
+include ("../settings.php");
+include ("../language/$cfg_language");
+include ("../classes/db_functions.php");
+include ("../classes/security_functions.php");
+include ("../classes/display.php");
+include ("../Connections/conexion.php");
+
+$lang = new language();
+$dbf = new db_functions($cfg_server, $cfg_username, $cfg_password, $cfg_database,
+    $cfg_tableprefix, $cfg_theme, $lang);
+$sec = new security_functions($dbf, 'Sales Clerk', $lang);
+$display = new display($dbf->conn, $cfg_theme, $cfg_currency_symbol, $lang);
+$tablename = $cfg_tableprefix . 'users';
+$userLoginName = $dbf->idToField($tablename, 'first_name', $_SESSION['session_user_id']);
+$userLoginLastName = $dbf->idToField($tablename, 'last_name', $_SESSION['session_user_id']);
+$NameUser = $userLoginName . ' ' . $userLoginLastName;
+if (!$sec->isLoggedIn())
+{
+    header("location: ../login.php");
+    exit();
+}
+
+$table_bg = $display->sale_bg;
+$num_items = count($_SESSION['items_in_sale']);
+$num_pay = count($_SESSION['sales_paywith']);
+
+$customers_table = $cfg_tableprefix . 'customers';
+$items_table = $cfg_tableprefix . 'items';
+$sales_items_table = $cfg_tableprefix . 'sales_items';
+$sales_table = $cfg_tableprefix . 'sales';
+$paywith_table = $cfg_tableprefix . 'sales_paywith';
+
+//general sale info
+$paid_with = isset($_POST['paid_with']) ? $_POST['paid_with'] : '';
+$comment = isset($_POST['comment']) ? $_POST['comment'] : '';
+$customer_name = $dbf->idToField($customers_table, 'first_name', $cliente) . ' ' .
+    $dbf->idToField($customers_table, 'last_name', $cliente);
+$customer_codigo = $dbf->idToField($customers_table, 'account_number', $cliente);
+?>
+<table align="center" >
+  <tr>
+    <td align="center"><font size='-4'>
+<?
+echo "<br><br><b>$cfg_company</b><br><b>$lang->nit : </b><b>$cfg_company_nit</b><p>";
+if ($cfg_address != '')
+{
+    $temp_address = nl2br($cfg_address);
+    echo "$lang->address: $temp_address <br>";
+
+}
+if ($cfg_phone != '' or $cfg_fax != '')
+{
+    echo "$lang->phoneNumber: $cfg_phone , $lang->fax: $cfg_fax <br>";
+
+}
+
+if ($cfg_email != '')
+{
+    echo "$lang->email: $cfg_email <br>";
+
+}
+
+if ($cfg_website != '')
+{
+    echo "$lang->website <a href=$cfg_website>$cfg_website</a> <br>";
+
+}
+/////////////////
+if ($cfg_res_fact != '')
+{
+    echo "$lang->res_fact: $cfg_res_fact <br>";
+
+}
+if ($cfg_res_fact != '')
+{
+    echo "$lang->desdeno: $cfg_fact_desde  $lang->hastano: $cfg_fac_hasta  <br>";
+
+}
+//////////////////
+
+?>
+</font></td>
+  </tr>
+</table>
+<?
+$now = date("F j, Y, g:i a");
+
+//////////////////////
+$todaysDate = date("Y-m-d");
+$subtotal = number_format($sale_total_cost - $finalTax, 0, '.', '');
+$final_tax = number_format($finalTax, 0, '.', '');
+$totrec = number_format($_POST['amountpay'], 2, '.', '');
+$change = $amountpay - $tots;
+////////////////////////
+/*$rc_invoicenumber=mysql_query('select invoicenumber  from pos_sales  where id = '.$sale_id.'',$conn_2);
+
+$row_in=mysql_fetch_assoc($rc_invoicenumber);*/
+
+//echo "<tr><td><div align='center'><font size='-4'>$lang->saleID: $cfg_pref_fac  ".$row_in["invoicenumber"]."  --  $now</font></div></td></tr>";
+echo "<tr><td><div align='center'><font size='-4'>$lang->saleID: $cfg_pref_fac    --  $now</font></div></td></tr>";
+echo "
+<center><h4><font size='-4'>$lang->orderBy: $customer_codigo -- $customer_name </font></h4>
+
+<table border='0' cellspacing='0' cellpadding='2' bgcolor='$table_bg'>
+
+		   <tr>
+		    <th><font color='CCCCCC' size='-4'>$lang->itemID</font></th>
+		   <th><font color='CCCCCC' size='-4'>$lang->sentencelong</font></th>
+	   	   <th><font color='CCCCCC' size='-4'>$lang->priceuni</font></th>
+		   <th><font color='CCCCCC' size='-4'>$lang->quantity</font></th>
+		   <th><font color='CCCCCC' size='-4'>$lang->tot</font></th>
+		   </tr>";
+
+//Add to sales_items table
+$kk = 0;
+
+$rcsale = mysql_query('select pos_items.item_number, pos_items.item_name, pos_sales_items.item_unit_price, pos_sales_items.quantity_purchased, pos_sales_items.item_total_cost, pos_sales_items.unit_sale, pos_items.shortdescription, pos_items.cronico
+ from pos_sales_items, pos_items   where pos_sales_items.sale_id = ' . $sale_id .
+    '  and pos_sales_items.item_id = pos_items.id
+  and pos_sales_items.quantity_purchased > 0 ', $conn_2);
+$jh = 0;
+
+while ($row4 = mysql_fetch_assoc($rcsale))
+{
+    if ($row4["unit_sale"] == 1)
+        $fr = 'Caja(s)';
+    else
+        $fr = 'Fracc';
+
+    $temp_total_items_purchased += $row4["quantity_purchased"];
+    $totalsale += $row4["item_total_cost"];
+
+    echo "<tr><td align='center'><font color='white' size='-4'>" . $row4["item_number"] .
+        "</font></td>
+	          <td align='left'><font color='white' size='-4'>" . $row4["shortdescription"] .
+        "</font></td>
+			  <td align='center'><font color='white' size='-4'>$cfg_currency_symbol " .
+        number_format($row4["item_unit_price"]) . "</font></td>
+			  <td align='center'><font color='white' size='-4'>" . number_format($row4["quantity_purchased"]) .
+        " " . $fr . "</font></td>
+			  <td align='center'><font color='white' size='-4'>$cfg_currency_symbol " .
+        number_format($row4["item_total_cost"]) . "</font></td>
+			  </tr>";
+
+    if ($row4["cronico"] == 1 and $kk == 0)
+        $kk = 2;
+
+}
+
+if ($kk == 2)
+    $func = 'pedircust()';
+else
+    $func = '';
+?>
+<body onLoad="<?=
+$func
+?>"></body>
+<?
+// Adicionar formas de pago de la venta
+
+$j = $_POST['k'];
+
+/*  if($temp_amount != "")
+{
+$field_datapay=array($saleID,$temp_paymethodid,$temp_amount,$temp_doc_num,$temp_entity,$temp_auth_num,0,date("Y-m-d"),$_SESSION['session_user_id'],$temp_entity);
+$dbf->insert($field_paywith,$field_datapay,$paywith_table,false);
+
+
+}*/
+
+echo "<tr><td></td></tr><tr><td colspan='3'><b><font color='white' size='4'>$lang->tot</font></td><td align='center'><font color='white' size='3'><b>" .
+    $temp_total_items_purchased .
+    "</b></font></td><td align='center'><font color='white' size='2'><b>" . $cfg_currency_symbol .
+    number_format($totalsale, 0) . "</b></font></td></tr></table><br>
+<table border='0' align='center'>";
+echo "<tr><td><b><font size='-4'>$lang->saleSubTotal: $cfg_currency_symbol  " .
+    number_format($subtotalvta) . "</font></b></td></tr><tr><td>";
+echo "<tr><td><b><font size='-4'>$lang->descuento:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$cfg_currency_symbol  " .
+    number_format($descuent) . "  ( " . $descuentporc .
+    " % )</font></b></td></tr><tr><td>";
+?>
+<table width="100%">
+  <tr>
+    <td colspan="4" align="center"><b><?
+echo "$lang->dettax";
+?></font></b></td>
+  </tr>
+  <tr>
+    <td align="center"><div align="center"><font size='-4'><?
+echo "<b>$lang->tar</b>";
+?></div></td>
+    <td><div align="center"><font size='-4'><?
+echo "<b>$lang->sale</b>";
+?></font></div></td>
+    <td><div align="center"><font size='-4'><?
+echo "<b>$lang->base_imp</b>";
+?></font></div></td>
+    <td><div align="center"><font size='-4'><?
+echo "<b>$lang->vlriva</b>";
+?></font></div></td>
+  </tr>
+  <?
+$jh = $_POST['jh'];
+for ($k = 0; $k < $jh; $k++)
+{
+    $tax = $_POST['tax' . $k . ''];
+    $taxid = $_POST['taxid' . $k . ''];
+    $taxrate = $_POST['taxrate' . $k . ''];
+
+    if ($taxid)
+    {
+        $rc_tax = mysql_query('select tax_rates_id  , tax_rate  from pos_tax_class, pos_tax_rates where pos_tax_rates.tax_class_id = pos_tax_class.tax_class_id and pos_tax_rates.tax_rates_id  = ' .
+            $taxid . '', $conn_2);
+
+        $rc_key = mysql_query('SELECT `key`
+FROM
+pos_tax_rates
+WHERE
+pos_tax_rates.tax_rates_id  = ' . $taxid . '', $conn_2);
+
+        $row5 = mysql_fetch_assoc($rc_key);
+
+        //echo 'select pos_tax_rates.tax_rates_id  , pos_tax_rates.tax_rate from pos_tax_class, pos_tax_rates where pos_tax_rates.tax_class_id = pos_tax_class.tax_class_id and pos_tax_rates.tax_rates_id  = '.$taxid.'';
+
+        $number = mysql_num_rows($rc_tax);
+
+        while ($row4 = mysql_fetch_assoc($rc_tax))
+        {
+            $base_impa = $tax / 1.16;
+            $valivaa = $tax - $base_impa;
+            //if($item_info[2] == $row4["tax_rate"])
+            //{
+
+?> 
+							  <tr>
+                                <td align="center"><div align="left"><font size='-4'><?
+            echo $row5["key"];
+?></font></div></td>
+                                <td><div align="center"><font size='-4'><?
+            echo number_format($tax, 0);
+?></font></div></td>
+                                <td><div align="center"><font size='-4'><?
+            echo number_format($base_impa, 0);
+?></font></div></td>
+                                <td><div align="center"><font size='-4'><?
+            echo number_format($valivaa, 0);
+?></font></div></td>
+                              </tr>
+							<?
+            $taxa += $rowTotal;
+            echo "<input type=hidden name='tax" . $row4["tax_rates_id"] .
+                "' id=''   value='" . $taxa . "'>";
+            $taxa = '';
+
+            //}
+            //					 echo $row4["tax_rate"].' victor'.'<br>';
+        }
+    }
+} // for
+
+?>
+
+   <tr>
+    <td colspan="4" align="center"><?
+echo "$lang->asteric";
+?></td>
+  </tr>
+  </table>
+<?
+$totalsale = number_format($sale_total_cost, 0);
+// echo "<b>$lang->tax: $cfg_currency_symbol$final_tax</b></td></tr>
+echo "</td></tr>
+<tr><td><b>$lang->saleTotalCost: $cfg_currency_symbol " . number_format($saleTotalCost) .
+    "</b></td></tr>";
+//echo "<tr><td><b>$lang->paidWithdet<br>";
+echo "<tr><td>";
+?>
+<table width="100%">
+  <tr>
+    <td colspan="3" align="center"><?
+echo "<b>$lang->paidWithdet<br>";
+?></td>
+  </tr>
+  <tr>
+    <td align="center"><div align="center"><font size="-4"><?
+echo "<b>$lang->type</b>";
+?></font></div></td>
+    <td><div align="center"><font size="-4"><?
+echo "<b>$lang->entity</b>";
+?></font></div></td>
+    <td><div align="center"><font size="-4"><?
+echo "<b>$lang->extendedPrice</b>";
+?></font></div></td>
+  </tr>
+<?
+$tablename = $cfg_tableprefix . 'pay_method';
+for ($m = 0; $m < $nummp; $m++)
+{
+    $temp_paymethodid = $paymethodid[$m];
+    $temp_amount = $amount[$m];
+    $paymethod_result = mysql_query("SELECT name FROM $tablename  where id = $temp_paymethodid",
+        $dbf->conn);
+
+    $temp_doc_num = $doc_num[$m];
+    $temp_entity = $entity[$m];
+    $temp_auth_num = $auth_num[$m];
+    while ($row = mysql_fetch_assoc($paymethod_result))
+    {
+        ////////////////////////////
+        switch ($temp_entity)
+        {
+            case 0:
+                $entidad = '';
+                break;
+
+            case 1:
+                $entidad = 'Visa';
+                break;
+            case 2:
+                $entidad = 'Visa Electron';
+                break;
+            case 3:
+                $entidad = 'Red Multicolor';
+                break;
+            case 4:
+                $entidad = 'American Express';
+                break;
+            case 5:
+                $entidad = 'Diners';
+                break;
+            case 6:
+                $entidad = 'Visa';
+                break;
+            case 7:
+                $entidad = 'Credencial';
+                break;
+            case 8:
+                $entidad = 'Mastercard';
+                break;
+            case 9:
+                $entidad = 'Bancolombia';
+                break;
+            case 10:
+                $entidad = 'Banco de bogota';
+                break;
+            case 11:
+                $entidad = 'Davivienda';
+                break;
+            case 12:
+                $entidad = 'BBVA';
+                break;
+            case 13:
+                $entidad = 'Banco de Credito';
+                break;
+            case 14:
+                $entidad = 'Citybank';
+                break;
+            case 15:
+                $entidad = 'SODEXHO PASS';
+                break;
+            case 16:
+                $entidad = 'BIG PASS';
+                break;
+
+        }
+        ////////////////////////////
+        if ($temp_amount != 0)
+        {
+?><tr> 
+		  <td><div align="center"><font size="-4"><?
+            echo $name = $row['name'];
+            if ($temp_paymethodid == 1)
+                $showchange = 0;
+            else
+                $showchange = 1;
+?></font></div></td><td><div align="center"><font size="-4"><?
+            if ($entidad != '')
+                echo $entidad;
+            else
+                echo '-------';
+?></font></div></td><td> <div align="center"><font size="-4"><?
+            echo number_format($temp_amount, 0);
+?></font></div></td>
+		  </tr>
+  
+  <?
+            // insert el medio de pago
+            $field_paywith = array('sale_id', 'paymethod_id', 'amount', 'doc_number',
+                'entity', 'authorized_num', 'cancel', 'entrydate', 'entryuserid',
+                'paymethoddetail_id');
+            $field_datapay = array($sale_id, $temp_paymethodid, $temp_amount, $temp_doc_num,
+                $temp_entity, $temp_auth_num, 0, date("Y-m-d"), $_SESSION['session_user_id'], $temp_entity);
+            $dbf->insert($field_paywith, $field_datapay, $paywith_table, false);
+
+        }
+    }
+
+}
+
+//if($paid_with == 'Efectivo')
+//{
+
+$subtotal = number_format($sale_total_cost - $finalTax, 0);
+$totrec = number_format($amountpay, 0);
+$change = $amountpay - $tots;
+$totsales = number_format($sale_total_cost, 0);
+echo "<tr><td colspan='3'></td></tr><tr><td align='left'><b><font size='-4'>$lang->amtTendered</font></b></td><td></td><td><font size='-4'>$cfg_currency_symbol$totrec</font></td></tr>";
+if ($showchange == 0)
+{
+    echo "<tr><td align='left'><b><font size='-4'>$lang->amtChange</font></b></td><td></td><td><font size='-4'>$cfg_currency_symbol " .
+        $changep . "</font></td></tr>";
+}
+//}
+// nota: sobre el status de la factura:   -1 -> anulada, 0 -> no completada, 1 -> completada
+
+$queryupd = 'update pos_sales set sale_sub_total = "' . $subtotalvta .
+    '", sale_total_cost = "' . $saleTotalCost . '", items_purchased = "' . $temp_total_items_purchased .
+    '", changee = "' . $changep . '", status = 1, customer_id = ' . $cliente .
+    ', descuentporc = ' . $descuentporc . ', value_discount = ' . $descuent .
+    ' where id = ' . $sale_id . '';
+// echo 'update pos_sales_items set quantity_purchased = 98 where sale_id = '.$sale_id.' and item_id = '.$saleitemid.'';
+$result_queryupd = mysql_query($queryupd);
+?>
+<tr>
+    <td colspan="3" align="center"><font size='-4'><?
+echo "$lang->asteric";
+?></font></td>
+  </tr>
+</table>
+<?
+echo "</b></td></tr><tr><td align = 'center'><b><font size='-4'>$lang->atendio: " .
+    $NameUser . "</font></b></td></tr>";
+?>
+<tr>
+    <td colspan="3" align="center"><font size='-4'><?
+echo "$lang->asteric";
+?></font></td>
+  </tr>
+  <tr>
+    <td colspan="3" align="center"><font size='-4'><b><?=
+$lang->horatenc
+?></b></font></td>
+  </tr>
+   <tr>
+    <td colspan="3" align="center"><font size='-4'><b><?=
+$cfg_footer1
+?></b></font></td>
+  </tr>
+  <tr>
+    <td colspan="3" align="center"><font size='-4'><b><?=
+$cfg_footer2
+?></b></font></td>
+  </tr>
+  <tr>
+    <td colspan="3" align="center"><font size='-4'><?
+echo "$lang->asteric";
+?></font></td>
+  </tr>
+  <tr>
+    <td colspan="3" align="center"><font size='-4'><b><?=
+$cfg_footer3
+?></b></font></td>
+  </tr>
+<?
+echo "</table></table>";
+
+$sec->closeSale();
+$dbf->closeDBlink();
+
+if ($cfg_other != '')
+{
+    echo "<font size='-4'>$cfg_other</font><br>";
+
+}
+?>
+<br><br>
+<SCRIPT Language="Javascript">
+
+/*
+This script is written by Eric (Webcrawl@usa.net)
+For full source code, installation instructions,
+100's more DHTML scripts, and Terms Of
+Use, visit dynamicdrive.com
+*/
+
+function printit(){  
+if (window.print) {
+    window.print() ;  
+} else {
+    var WebBrowser = '<OBJECT ID="WebBrowser1" WIDTH=0 HEIGHT=0 CLASSID="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2"></OBJECT>';
+document.body.insertAdjacentHTML('beforeEnd', WebBrowser);
+    WebBrowser1.ExecWB(6, 2);//Use a 1 vs. a 2 for a prompting dialog box    WebBrowser1.outerHTML = "";  
+}
+}
+</script>
+
+<SCRIPT Language="Javascript">  
+var NS = (navigator.appName == "Netscape");
+var VERSION = parseInt(navigator.appVersion);
+if (VERSION > 3) {
+    document.write('<form><input type=button value="Print" name="Print" onClick="printit()"></form>');        
+}
+</script>
+<script type="text/javascript" language="javascript">
+<!--
+function pedircust ()
+       {
+	    ventanaSecundaria(this);
+	   }
+function ventanaSecundaria (URL){
+window.open("sale_ui.php?actionID=addcustomer&titulo=2&saleID=<?=
+$sale_id
+?>","ventana1","width=600, height=270, scrollbars=yes, menubar=no, location=no, resizable=yes")
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,441 @@
+<?php
+session_start();
+
+include ("settings.php");
+include ("language/$cfg_language");
+include ("classes/db_functions.php");
+include ("classes/security_functions.php");
+
+//create 3 objects that are needed in this script.
+$lang = new language();
+$dbf = new db_functions($cfg_server, $cfg_username, $cfg_password, $cfg_database,
+    $cfg_tableprefix, $cfg_theme, $lang);
+$sec = new security_functions($dbf, 'Public', $lang);
+
+$tablename = $cfg_tableprefix . 'users';
+$auth = $dbf->idToField($tablename, 'type', $_SESSION['session_user_id']);
+$userLoginName = $dbf->idToField($tablename, 'username', $_SESSION['session_user_id']);
+
+$dbf->closeDBlink();
+
+// Display HTML--
+
+?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title><?php
+echo $cfg_company
+?>--<?php
+echo $lang->poweredBy
+?> POS Web - JVM Company S.A. 2008 </title>
+	<link rel="stylesheet" rev="stylesheet" href="css/phppos.css" />
+
+    <script src="jquery_ui/js/jquery.min.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
+    <script src="jquery_ui/js/jquery-ui-1.8.7.custom.min.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
+<!--
+    <script src="jquery_ui/js/effects.core.min.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
+    <script src="jquery_ui/js/ui.core.min.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
+-->
+	<script src="js/thickbox.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
+	<script src="js/common.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
+	<script src="js/manage_tables.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
+	<script src="js/swfobject.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
+<script>
+function decision(message, url)
+{
+	if(confirm(message) )
+  {
+    parent.location.href = url;
+  }
+}
+</script>
+ 
+<style type="text/css">
+html {
+    overflow: auto;
+}
+</style> 
+
+<style type="text/css"> 
+ <!-- 
+ a.nav:link
+ {
+ 	font-weight:bold;
+	 font-size:7pt;
+	 font-family:Verdana;
+	 color:white;
+	
+
+ }
+ 
+ a.nav:visited
+ {
+ 	font-weight:bold;
+	 font-size:7pt;
+	 font-family:Verdana;
+	 color:white;
+ }
+ 
+ a.nav:active
+ {
+ 	font-weight:bold;
+	 font-size:7pt;
+	 font-family:Verdana;
+	 color:white;
+ }
+
+ a.nav:hover
+ {
+	 font-size:7pt;
+	 font-family:Verdana;
+	 color:#CCCCCC;
+	
+
+ }
+
+ //--> 
+ </style>
+<TITLE><?php
+echo $cfg_company
+?>--<?php
+echo $lang->poweredBy
+?> POS Web - JVM Company S.A. 2008</TITLE>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+<BODY   >
+<div id="menubar">
+	<div id="menubar_container">
+		<div id="menubar_company_info">
+		<span id="company_title"><?php
+echo $cfg_company;
+?></span><br />
+	</div>
+    
+		<div id="menubar_navigation">
+			<div class="menu_item" onClick="window.open('home.php','MainFrame')">
+				<img src="<?php
+echo 'images/menubar/home.png';
+?>" border="0" title="<?php
+echo $lang->home;
+?>" width="25" height="25" /><br />
+			</div>
+            <?php
+if ($auth == "Admin")
+{
+?>
+			<div class="menu_item" onClick="window.open('customers/index.php','MainFrame')">
+				<img src="<?php
+echo 'images/menubar/customers.png';
+?>" border="0" title="<?php
+echo $lang->customers;
+?>" width="25" height="25" /><br />
+			</div>
+<?php
+}
+if ($auth == "Admin")
+{
+?>           
+			<div class="menu_item" onClick="window.open('items/index.php','MainFrame')">
+				<img src="<?php
+echo 'images/menubar/items.png';
+?>" border="0" title="<?php
+echo $lang->items;
+?>" width="25" height="25" /><br />
+			</div>         
+<?php
+}
+if ($auth == "Admin")
+{
+?>            
+			<div class="menu_item" onClick="window.open('reports/index.php','MainFrame')">
+				<img src="<?php
+echo 'images/menubar/reports.png';
+?>" border="0" title="<?php
+echo $lang->reports;
+?>" width="25" height="25" /><br />
+			</div>  
+<?php
+}
+if ($auth == "Admin")
+{
+?>            
+			<div class="menu_item" onClick="window.open('sales/sale_ui.php','MainFrame')">
+				<img src="<?php
+echo 'images/menubar/sales.png';
+?>" border="0" title="<?php
+echo $lang->sales;
+?>" width="25" height="25" /><br />
+			</div>   
+<?php
+}
+if ($auth == "Admin")
+{
+?>    
+			<div class="menu_item" onClick="window.open('settings/index.php','MainFrame')">
+				<img src="<?php
+echo 'images/menubar/config.png';
+?>" border="0" title="<?php
+echo $lang->settings;
+?>" width="25" height="25" /><br />
+			</div>                                         
+
+<?php
+}   
+?>
+
+			<div class="menu_item" >
+				<a href="javascript:decision('<?php
+    echo $lang->logoutConfirm
+?>','logout.php')">
+                <img src="<?php
+echo 'images/menubar/exit.png';
+?>" border="0" title="<?php
+echo $lang->logout;
+?>" width="25" height="25" /></a><br />
+			</div> 
+        </div>
+        
+		<div id="menubar_footer">
+		<?php
+echo $lang->welcome . " $userLoginName! ";
+?>
+		</div>
+
+		<div id="menubar_date">
+		<?php
+echo date('F d, Y h:i a')
+?>
+		</div>        
+    </div> 
+</div> <!--
+              
+<TABLE WIDTH=750 BORDER=0 CELLPADDING=0 CELLSPACING=0 style="border-collapse: collapse" bordercolor="#111111">
+	<TR>
+		<TD width="434" background="images/menubar_01.gif" height="78">
+			<div align="center">
+              <center>
+              <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="95%" id="AutoNumber1">
+                <tr>
+                  <td width="100%"><b>
+                  <font face="Verdana" color="#FFFFFF" size="4"><?php
+    echo $cfg_company
+?></font></b></td>
+                </tr>
+                <tr>
+                  <td width="100%">
+                  <font face="Verdana" size="1" color="#FFFFFF"><?php
+    echo $lang->poweredBy
+?> 
+                  POS Web - JVM Company S.A.</font></td>
+                </tr>
+              </table>
+              </center>
+            </div>
+        </TD>
+		<?php
+    if ($auth == "Admin")
+    {
+?>
+		<TD background="images/menubar_02.gif" WIDTH="62" HEIGHT="78" style="cursor: hand;" onClick="window.open('home.php','MainFrame')">
+		
+		<center><br><br>&nbsp;&nbsp;&nbsp;&nbsp;<a href="home.php" target="MainFrame" class="nav"><?php
+        echo $lang->home
+?></a></center>
+		
+		</TD>
+		<TD background="images/menubar_03.gif" WIDTH="65" HEIGHT="78" style="cursor: hand;" onClick="window.open('customers/index.php','MainFrame')">
+		
+		<center><br><br>&nbsp;<a href="customers/index.php" target="MainFrame" class="nav"><?php
+        echo $lang->customers
+?></a></center>
+
+		</TD>
+		<TD background="images/menubar_04.gif" WIDTH="48" HEIGHT="78" style="cursor: hand;" onClick="window.open('items/index.php','MainFrame')">
+			
+		<center><br><br>&nbsp;<a href="items/index.php" target="MainFrame" class="nav"><?php
+        echo $lang->items
+?></a></center>
+
+		</TD>
+		<TD background="images/menubar_05.gif" WIDTH="52" HEIGHT="78" style="cursor: hand;" onClick="window.open('reports/index.php','MainFrame')">
+		
+		<center><br><br>&nbsp;<a href="reports/index.php" target="MainFrame" class="nav"><?php
+        echo $lang->reports
+?></a></center>
+
+		</TD>
+		<TD background="images/menubar_06.gif" WIDTH="42" HEIGHT="78" style="cursor: hand;" onClick="window.open('sales/index.php','MainFrame')">
+		
+		<center><br><br>&nbsp;<a href="sales/index.php" target="MainFrame" class="nav"><?php
+        echo $lang->sales
+?></a></center>
+
+		</TD>
+		<TD background="images/menubar_06.gif" WIDTH="42" HEIGHT="78" style="cursor: hand;" onClick="window.open('sales/sale_ui.php','MainFrame')">
+		
+		<center><br><br>&nbsp;<a href="sales/sale_ui.php" target="MainFrame" class="nav"><?php
+        echo $lang->salesNow
+?></a></center>
+
+		</TD>
+		<TD background="images/menubar_07.gif" WIDTH="47" HEIGHT="78" style="cursor: hand;" onClick="window.open('settings/index.php','MainFrame')">
+	
+		<center><br><br>&nbsp;<a href="settings/index.php" target="MainFrame" class="nav"><?php
+        echo $lang->config
+?></a></center>
+
+		</TD>
+		
+		
+	</TR>
+	<?php
+    }
+    if ($auth == "Sales Clerk")
+    {
+?>
+		
+		<TD background="images/menubar_sales_01.gif" WIDTH="62" HEIGHT="78">
+			
+		
+		</TD>
+		
+		<TD background="images/menubar_sales_02.gif" WIDTH="65" HEIGHT="78">
+			
+		
+		</TD>
+	
+	
+		<TD background="images/menubar_03.gif" WIDTH="65" HEIGHT="78" style="cursor: hand;" onClick="window.open('customers/index.php','MainFrame')">
+		
+		<center><br><br>&nbsp;<a href="customers/index.php" target="MainFrame" class="nav"><?php
+        echo $lang->customers
+?></a></center>
+
+		</TD>
+	    <TD background="images/menubar_05.gif" WIDTH="52" HEIGHT="78" style="cursor: hand;" onClick="window.open('reports/index.php','MainFrame')">
+		
+		<center><br><br>&nbsp;<a href="reports/endday.php" target="MainFrame" class="nav"><?php
+        echo $lang->reports
+?></a></center>
+
+		</TD>
+		
+		<TD background="images/menubar_sales_04.gif" WIDTH="52" HEIGHT="78">
+			
+		
+		</TD>
+		
+		<TD background="images/menubar_sales_05.gif" WIDTH="42" HEIGHT="78" style="cursor: hand;" onClick="window.open('home.php','MainFrame')">
+			
+		<center><br><br>&nbsp;<a href="home.php" target="MainFrame" class="nav"><?php
+        echo $lang->home
+?></a></center>
+
+		</TD>
+		
+		<TD background="images/menubar_sales_06.gif" WIDTH="47" HEIGHT="78" style="cursor: hand;" onClick="window.open('sales/index.php','MainFrame')">
+		
+		<center><br><br>&nbsp;<a href="sales/index.php" target="MainFrame" class="nav"><?php
+        echo $lang->sales
+?></a></center>
+
+		</TD>
+		
+	<?php
+    }
+    if ($auth == "Report Viewer")
+    {
+?>
+		
+		<TD background="images/menubar_reports_01.gif" WIDTH="62" HEIGHT="78">
+			
+		
+		</TD>
+		
+		<TD background="images/menubar_reports_02.gif" WIDTH="65" HEIGHT="78">
+			
+		
+		</TD>
+	
+	
+		<TD background="images/menubar_reports_03.gif" WIDTH="48" HEIGHT="78">
+			
+		
+		</TD>
+	
+		
+		<TD background="images/menubar_reports_04.gif" WIDTH="52" HEIGHT="78">
+			
+		
+		</TD>
+		
+		<TD background="images/menubar_reports_05.gif" WIDTH="42" HEIGHT="78" style="cursor: hand;" onClick="window.open('home.php','MainFrame')">
+		
+		<center><br><br>&nbsp;<a href="home.php" target="MainFrame" class="nav"><?php
+        echo $lang->home
+?></a></center>
+
+		
+		</TD>
+		
+		<TD background="images/menubar_reports_06.gif" WIDTH="47" HEIGHT="78" style="cursor: hand;" onClick="window.open('reports/index.php','MainFrame')">
+		
+		<center><br><br>&nbsp;<a href="reports/index.php" target="MainFrame" class="nav"><?php
+        echo $lang->reports
+?></a></center>
+
+		
+		</TD>
+	</TR>
+	<?php
+    }
+?>
+	<TR>
+		<TD COLSPAN=4 width="609" bgcolor="#0A6184" height="22">
+			<div align="center">
+              <center>
+              <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="97%" id="AutoNumber2">
+                  <tr>
+                  <td width="100%"><b>
+                  <font face="Verdana" size="1" color="#FFFFFF">
+				  <?php
+    echo $lang->welcome
+?>
+				  <?php
+    echo $userLoginName;
+?>!
+				  | <a href="javascript:decision('<?php
+    echo $lang->logoutConfirm
+?>','logout.php')"><font color="#FFFFFF">
+                  <?php
+    echo $lang->logout
+?></font></a></font></b>		    </td>
+                </tr>
+              </table>
+              </center>
+            </div>
+        </TD>
+		<TD COLSPAN=3 width="141" bgcolor="#0A6184" height="22">
+			<div align="center">
+              <center>
+              <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="95%" id="AutoNumber3">
+                <tr>
+                  <td width="100%">
+                  <p align="right"><b>
+                  <font face="Verdana" size="1" color="#FFFFFF"><?php
+    echo date("F j, Y");
+?></font></b></td>
+                </tr>
+              </table>
+              </center>
+            </div>
+        </TD>
+	</TR>
+	</TABLE>
+-->
+</BODY>
+</HTML>

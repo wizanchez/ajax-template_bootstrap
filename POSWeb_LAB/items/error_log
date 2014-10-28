@@ -1,0 +1,2 @@
+[22-May-2008 18:33:35] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/jvmcompa/public_html/totaleerp/merchanPOS/language/spanish.php:448) in /home/jvmcompa/public_html/totaleerp/merchanPOS/items/index.php on line 14
+[25-Jan-2011 08:42:48] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/jvmcompa/public_html/suiteerp/emssanar/POSWeb/items/form_items.php:10) in /home/jvmcompa/public_html/suiteerp/emssanar/POSWeb/items/form_items.php on line 27

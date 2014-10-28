@@ -1,0 +1,4 @@
+[22-May-2008 21:49:55] PHP Warning:  main(../language/spanish.php) [<a href='function.main'>function.main</a>]: failed to open stream: No such file or directory in /home/jvmcompa/public_html/totaleerp/merchanPOS/settings/index.php on line 3
+[22-May-2008 21:49:55] PHP Warning:  main(../language/spanish.php) [<a href='function.main'>function.main</a>]: failed to open stream: No such file or directory in /home/jvmcompa/public_html/totaleerp/merchanPOS/settings/index.php on line 3
+[22-May-2008 21:49:55] PHP Warning:  main() [<a href='function.include'>function.include</a>]: Failed opening '../language/spanish.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/jvmcompa/public_html/totaleerp/merchanPOS/settings/index.php on line 3
+[22-May-2008 21:49:55] PHP Fatal error:  Cannot instantiate non-existent class:  language in /home/jvmcompa/public_html/totaleerp/merchanPOS/settings/index.php on line 269

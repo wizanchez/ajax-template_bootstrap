@@ -1,0 +1,45 @@
+<?php session_start(); ?>
+<html>
+<head>
+</head>
+
+<body>
+<?php
+
+include ("../settings.php");
+include ("../language/$cfg_language");
+include ("../classes/db_functions.php");
+include ("../classes/security_functions.php");
+include ("../classes/display.php");
+
+$lang=new language();
+$dbf=new db_functions($cfg_server,$cfg_username,$cfg_password,$cfg_database,$cfg_tableprefix,$cfg_theme,$lang);
+$sec=new security_functions($dbf,'Report Viewer',$lang);
+if(!$sec->isLoggedIn())
+{
+    header ("location: ../login.php");
+    exit();
+}
+
+if(isset($_GET['sale_id']))
+{
+	$sale_id=$_GET['sale_id'];
+	$customer_id=$_GET['sale_customer_id'];
+	$sale_date=$_GET['sale_date'];
+	
+	$temp_first_name=$dbf->idToField("$cfg_tableprefix".'customers','first_name',$customer_id);
+	$temp_last_name=$dbf->idToField("$cfg_tableprefix".'customers','last_name',$customer_id);
+	$sale_customer_name=$lang->orderBy.' : '.$temp_first_name.' '.$temp_last_name;
+	$temp_invoicenumber=$dbf->idToField("$cfg_tableprefix".'sales','invoicenumber',$sale_id);
+}	
+$display=new display($dbf->conn,$cfg_theme,$cfg_currency_symbol,$lang);
+$display->displayTitle("$lang->valpvpcost");
+$tableheaders=array("$lang->itemID","$lang->itemName","$lang->supplier","$lang->cost","$lang->pvp","$lang->margen","$lang->onhandqty","$lang->tot_a_cost","$lang->tot_a_vta");
+$display->displayTotalsReport($cfg_tableprefix,'valpvpcost',$tableheaders,$date1,$date2,'id',''); 
+
+?>
+
+
+
+</body>
+</html> 

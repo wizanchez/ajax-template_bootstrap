@@ -1,0 +1,11 @@
+<?php
+define(DB_TYPE,'mysql');
+define(DB_SERVER_ERP,'191.168.0.56');
+define(DB_SERVER_USERNAME_ERP,'webservice');
+define(DB_SERVER_PASSWORD_ERP,'webservice');
+define(DB_DATABASE_ERP,'jvmcompa_emssanar');
+$cfg_server_erp=DB_SERVER_ERP;
+$cfg_database_erp=DB_DATABASE_ERP;
+$cfg_username_erp=DB_SERVER_USERNAME_ERP;
+$cfg_password_erp=DB_SERVER_PASSWORD_ERP;
+?>

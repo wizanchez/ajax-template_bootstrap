@@ -1,0 +1,202 @@
+.field_row 
+{
+	margin: 0 0 10px 0;
+}
+
+.field_row label 
+{
+	float:left;
+	width:100px;
+	text-align:left;
+	line-height:2.3;
+}
+
+.field_row label.wide 
+{
+	width:150px;
+}
+
+label.required
+{
+	color:red;
+}
+ 
+.form_field
+{
+ 	float:left;
+ 	padding: 3px;
+ 	background-color: #f2f2f2;
+}
+  
+.form_field input, .form_field textarea 
+{
+ 	border: 1px solid #ccc;
+ 	padding: 4px;
+}
+
+.submit_button 
+{
+	padding: 5px;
+	color: #fff;
+	background-color: #0a6184;
+	border: 2px solid #ddd;
+}
+
+.small_button
+{
+	position:relative;
+	width:95px;
+	height:30px;
+	background-image: url(../images/small_action_button.jpg);
+	background-repeat:no-repeat;
+	cursor:pointer;
+}
+.small_button span
+{
+	position:absolute;
+	width:100%;
+	top:30%;
+	left:0%;
+	color:#FFF;
+	font-size:11px;
+	font-weight:bold;
+	text-align:center;
+}
+
+.float_left
+{
+	float:left;
+}
+
+.float_right
+{
+	float:right;
+}
+
+.big_button
+{
+	position:relative;
+	width:119px;
+	height:45px;
+	background-image: url(../images/big_action_button.jpg);
+	background-repeat:no-repeat;
+	cursor:pointer;
+}
+
+.big_button span
+{
+	position:absolute;
+	width:100%;
+	top:35%;
+	color:#FFF;
+	font-size:13px;
+	font-weight:bold;
+	text-align:center;
+}
+
+
+.warning_message
+{
+	text-align:center;
+	background-color:#fffcdd;
+	border:1px solid #fff4aa;
+	font-weight:bold;
+}
+
+.error_message
+{
+	text-align:center;
+	background-color:#f68383;
+	border:1px solid #da3232;
+	font-weight:bold;
+}
+
+.warning_mesage
+{
+	text-align:center;
+	background-color:#FBEC5D;
+	border:1px solid #da3232;
+	font-weight:bold;
+}
+
+.success_message
+{
+	text-align:center;
+	background-color:#e1ffdd;
+	border:1px solid #2ca71c;
+	font-weight:bold;
+}
+/*
+input , .select
+{
+	font-family:Tahoma, Geneva, sans-serif;
+	background:#CCC;
+	border: 1px solid #000;
+	font-size: 12px;
+	font-weight: normal;
+	color: #000;
+	text-decoration: none;
+}*/
+.cajas_pos
+{
+	font-family:Tahoma, Geneva, sans-serif;
+	background:#CCC;
+	border: 1px solid #000;
+	font-size: 12px;
+	font-weight: normal;
+	color: #000;
+	text-decoration: none;
+}
+
+.clearfix:after 
+{
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+.clearfix { display: inline-block; }
+html[xmlns] .clearfix {	display: block; }
+* html .clearfix { height: 1%; }
+
+/*nuevo*/
+.FondoBarra_2{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000;
+	text-decoration: none;
+	background-color: #FFF;
+	background-image: url(../images/fondo_barra_gris.gif);
+	background-repeat: repeat-x;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #000;
+	border-right-color: #000;
+	border-bottom-color: #000;
+	border-left-color: #000;
+	cursor:pointer;
+	padding-bottom:4px;
+	padding-top:4px;
+	padding-left:4px;
+	padding-right:2px;
+	-moz-border-radius-topleft:4px; /* -webkit-border-top-left-radius arriba izquierda*/
+	-moz-border-radius-bottomleft:4px; /* -webkit-border-top-right-radius arriba derecha*/
+	}
+.TexList {
+	cursor:pointer;
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 11px;
+	color: #333;
+	text-decoration: none;
+	padding-left: 0px;
+	font-weight: normal;
+}

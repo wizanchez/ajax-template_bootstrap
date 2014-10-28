@@ -1,0 +1,937 @@
+.formudiv {
+	overflow: visible;
+	padding: 0px 13px 0px 0px;
+	margin: 0px 0px 0px 0px;
+	float: left;
+	width: Auto;
+}
+.formudivl {
+	overflow: visible;
+	padding: 0px 8px 0px 0px;
+	margin: 0px 0px 0px 0px;
+	float: left;
+	width: Auto;
+	height: Auto;	
+}
+
+.formudiv2 {
+	overflow: visible;
+	padding: 0px 8px 0px 0px;
+	margin: 0px 0px 0px 0px;
+	float: right;
+	width: Auto;
+	height: Auto;	
+}
+
+.formudiv3 {
+	overflow: visible;
+	padding: 0px 3px 0px 0px;
+	margin: 0px 0px 0px 0px;
+	float: left;
+	width: Auto;
+	height: Auto;	
+}
+
+.botonrf{
+    font-size:18px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight:bold;
+	border: solid 1px #000000;
+	border-left:solid 1px #000000;
+	padding: 4px;
+	background-color: #dadadc;
+	text-align: center;
+    width:275px;
+    height:35px;
+}
+
+.botonrf2{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight:bold;
+	border: solid 1px #000000;
+	border-left:solid 1px #000000;
+	padding: 4px;
+	background-color: #dadadc;
+	text-align: center;
+    width:30px;
+    height:25px;
+}
+
+.KT_tngtable th, .KT_tngtable td.KT_th {
+	
+	vertical-align: top;
+	background:#000000;
+	color:#FFFFFF;
+	
+}
+/* the plain cells   */
+.KT_tngtable td {
+	border-top-width: 0;
+	border-left-width: 0;
+	vertical-align: top;
+	background:#ccc;
+	color:#000000;	
+}
+
+
+/* *
+ * recommmended css attribute order
+	* layout:            display, list-style
+	* box positioning:   position, float, clear
+	* box position:      top, right, bottom, left
+	* box clipping:      overflow, clip
+	* box size:          width, height
+	* box style:         margin, padding, border, background
+	* text:              color, font, text-decoration, text-transform
+	* text positioning:  text-align, vertical-align
+	* other text:        white-space, ...
+ * */
+
+/* Table and cell look and feel */
+.KT_tngtable {
+	
+}
+	.KT_tngtable tfoot, .KT_tngtable thead {
+		border: solid 1px #000000;
+	}
+	.KT_tngtable td, .KT_tngtable th, .KT_tngtable caption {
+	/*	border: 1px dotted white;
+		padding: 2px;
+		white-space: nowrap;*/
+	}
+	/* HACK: to make ktml3 skin work properly */
+	.KT_tngtable .ktml * td {
+		border: 0px;
+		white-space: normal ! important;
+	}
+		.KT_tngtable .ktml span.lcontainer table {
+		}
+		.KT_tngtable .ktml span.lcontainer td {
+			padding: 0px ! important;
+			margin: 0px ! important;
+			vertical-align: medium;
+			
+		}
+
+/* Buttons area for tNG form */
+.KT_buttons td {
+	padding: 4px;
+	background-color: #dadadc;
+	text-align: right;
+}
+
+/* Fonts for the table, table headings, table cells */
+	.KT_tngtable td, .KT_tngtable th, .KT_tngtable caption {
+		font-family: Arial, Helvetica, sans-serif;
+	}
+	.KT_tngtable th, .KT_tngtable td.KT_th, .KT_tngtable caption {
+		font-size: 12px;
+		text-align: left;
+	}
+	.KT_tngtable td {
+		font-size: 11px;
+		
+	}
+
+/* Active Form Elements :font-sizes */
+	.KT_tngtable input, .KT_tngtable select {
+		font-size: 10px;
+	}
+
+	.KT_tngtable textarea {
+		font-size: 12px;
+	}
+
+/* Special items : error containers, field hints, required table cell  */
+	.KT_field_error {
+		color: #cc0000;
+	}
+	.KT_field_hint {
+		color:#0000cc;
+		font-size: 10px;
+	}
+	.KT_tngtable td.KT_required {
+	}
+	/* span containing the "*" for required field labels */
+	.KT_tngtable label span.KT_required {
+		padding: 0 2px;
+		color: #cc0000;
+		font-family: Courier New, Courier, monospace;
+		font-weight: normal;
+	}
+
+
+/* The client-side error displaying */
+
+	/* How the label should change on error */
+	.form_validation_field_error_label {
+		/* color:#cc0000; */
+	}
+
+	/* How the input's container (TD) should change on error */
+	.form_validation_field_error_container {
+		/* border: 2px solid black; */
+	}
+
+	/* How the input textfield should change on error */
+	.form_validation_field_error_text {
+		/* border:2px solid #cc0000; */
+	}
+
+	/* The actual error message style */
+	.form_validation_field_error_error_message {
+		color:#cc0000;
+		font-weight: bold;
+		clear:left;
+	}
+	form.form_validation_form_error table {
+		border: 2px solid red;
+	}
+
+/* The server-side error displaying */
+/* topmost error div */
+#KT_tngerror {
+	padding: 5px 10px 5px 50px;
+	margin:5px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-weight:bold;
+	color: #CC0000;
+	font-size: 12px;
+	border:1px solid red;
+	background-color:#FFFFE4;
+	background-image:url(images/error.gif);
+	background-repeat:no-repeat;
+	background-position:left;
+}
+
+/* trace container ( initially collapsed) area */
+#KT_tngdeverror, #KT_tngtrace {
+	padding: 5px 10px 5px 5px;
+	margin:5px;
+	border:1px solid black;
+	font-family:Courier, sans-serif;
+	font-size: 12px;
+	background-color:#FAFAFA;
+}
+
+	/* alignment and borders for the form submit buttons */
+	#KT_tngdeverror label, #KT_tngtrace label {
+		display: block;
+		font-family:Verdana, Arial, Helvetica, sans-serif;
+		font-weight:bold;
+	}
+
+	#KT_tngtrace ul {
+		padding-left:10px;
+		margin-left:10px;
+	}
+
+	#KT_tngtrace_details {
+		display: none;
+	}
+
+#KT_tngwarning {
+	padding: 10px 10px 10px 50px;
+	margin:5px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-weight:bold;
+	color: #0000CC;
+	font-size: 12px;
+	border:1px solid blue;
+	background-color:#E4FFFF;
+	background-image:url(images/warning.gif) ;
+	background-repeat:no-repeat;
+	background-position:left;
+}
+
+.BotonGeneral {
+	font-family: Tahoma;
+	font-size: 10px;
+	font-weight: bold;
+	color: #336699;
+	background-image: url(../images/fondo_boton.jpg);
+	background-repeat:   repeat-x;
+	border: thin solid #666666;
+	text-transform: uppercase;
+}
+
+
+.LinksGenerales {
+	font-family: Tahoma;
+	font-size: 10px;
+	font-weight: normal;
+	text-transform: capitalize;
+	color: #666699;
+	text-decoration: none;
+}
+.LinksGenerales:hover {
+	font-family: Tahoma;
+	font-size: 10px;
+	font-weight: normal;
+	text-transform: capitalize;
+	color: #990000;
+	text-decoration: underline overline;
+}.subTitulos {
+	font-family: Tahoma;
+	font-size: 10px;
+	font-weight: bolder;
+	text-transform: uppercase;
+	color: #336699;
+}
+/*PARA LOS INPUT TEX*/
+
+.cajas {
+	font-family: Tahoma;
+	font-size: 9px;
+	font-weight: bold;
+	color: #333333;
+	background-color: #F0F8FF;
+	border: thin solid #336699;
+	
+}
+/*.cajas_fondo_k {
+	font-family: Tahoma;
+	font-size: 9px;
+	font-weight: bold;
+	color: #333333;
+	background-position: center center;
+	background-attachment: fixed;
+	background-image: url(../images/cuadrito.png);
+	background-repeat: no-repeat;
+	border-top-width: thin;
+	border-right-width: thin;
+	border-bottom-width: thin;
+	border-left-width: thin;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+}*/
+.cajas_2 {
+	font-family: Tahoma;
+	font-size: 9px;
+	font-weight: bold;
+	color: #CCCCCC;
+	background-color: #336699;
+	border: thin solid #336699;	
+}
+/*SE UTILIZA ESTA DIVISION PARA LOS OBJETOS AJAX*/
+            #detalles {
+                margin: 0px;
+                border: 0px solid #F0F0F0;
+                padding: 0px;
+                font-size: 0px;
+            }
+ 
+/*estylo para el parametro autocompletar de ajax*/
+/******************ing luis sanchez*/
+
+#demoIzq, #demoDer { border:1px dashed; width:296px; background-color:#EAEAEA; text-align:right; }
+
+#demoDer { float:right; position:relative; }
+
+#lista
+{
+	position:absolute;
+	width:auto;
+	background-color:#EAEAEA; color:#000000;
+	border:1px dotted; border-color:#000000;
+	z-index:1;
+	top:300px;
+	left:135px;
+	display:none;
+	padding: 0 2px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	overflow:auto;
+	height: 250px;
+}
+
+.resaltado
+{
+	background-color:#FFFFFF; color:#000000;
+	cursor:pointer;
+}
+
+.normal
+{
+	background-color:#EAEAEA; color:#000000;
+}
+/*****************************termina****/
+
+
+/*  utilizado por Ing. victor hugo espinosa zarate */
+
+#lista1
+{
+	position:absolute;
+	width:auto;
+	background-color:#EAEAEA; color:#000000;
+	border:1px dotted; border-color:#000000;
+	z-index:1;
+	top:221px;
+	left:132px;
+	display:none;
+	padding: 0 2px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+
+.tabla {
+	border: thin dotted #93CCFF;
+}
+.sencillo {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	text-transform: capitalize;
+	color: #006699;
+	text-decoration: none;
+}
+.link_Titulos {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	text-transform: lowercase;
+	color: #006699;
+	text-decoration: none;
+}
+.Estilo44 {
+	color: #FFFFFF;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	font-weight: bold;
+}
+
+.anylinkcss{
+	position:absolute;
+	visibility: hidden;
+	border-bottom-width: 0;
+	font:normal 12px Verdana;
+	line-height: 18px;
+	z-index: 100;
+	background-color: #CCCCCC;
+	width: 150px;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #CCCCCC;
+	border-right-color: #CCCCCC;
+	border-bottom-color: #CCCCCC;
+	border-left-color: #CCCCCC;
+}
+
+.anylinkcss a{
+width: 100%;
+display: block;
+text-indent: 3px;
+border-bottom: 1px solid black;
+padding: 1px 0;
+text-decoration: none;
+font-weight: bold;
+text-indent: 5px;
+}
+
+.anylinkcss a:hover{ /*hover background color*/
+background-color: black;
+color: white;
+}
+}
+
+
+
+.textoMay{
+	color: #333333;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	font-weight: normal;
+	text-transform: capitalize;
+	text-decoration: none;
+}
+.textofecha{
+	color: #666666;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	font-weight: normal;
+	text-transform: capitalize;
+	text-decoration: none;
+}
+
+.textoAsunto{
+	color: #000000;
+	font-family: Tahoma;
+	font-size: 14px;
+	font-weight: bold;
+	text-transform: capitalize;
+	text-decoration: none;
+}
+.textoDe{
+	color: #000000;
+	font-family: Tahoma;
+	font-size: 10px;
+	font-weight: bold;
+	text-transform: capitalize;
+	text-decoration: none;
+}
+
+.textoMay{
+	color: #333333;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	font-weight: normal;
+	text-transform: capitalize;
+	text-decoration: none;
+}
+.textofecha{
+	color: #666666;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	font-weight: normal;
+	text-transform: capitalize;
+	text-decoration: none;
+	border: thin dotted #FFFFFF;
+}
+
+.table_2 {
+	border: thin solid #78879c;
+	background-image: url(../images/fondo_menu.jpg);
+	height: 22px;
+	background-repeat: repeat-x;
+}
+.link_arbol {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	font-weight: bold;
+	text-transform: lowercase;
+	color: #006699;
+	text-decoration: none;
+}
+.link_arbol:hover {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	font-weight: bold;
+	text-transform: lowercase;
+	color: #999900;
+	text-decoration: none;
+}
+
+.link_mas_arbol {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	text-transform: lowercase;
+	color: #006633;
+	text-decoration: none;
+}
+.link_mas_arbol:hover {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	text-transform: lowercase;
+	color: #999900;
+	text-decoration: none;
+}
+/***************************************************HOJAS DEL AUTOCOMPLETAR**********************/
+
+
+.suggestionsBox {
+	position: absolute;
+	/*left: 30px;
+	top:200px;
+	z-index:1;*/
+	margin: 10px 0px 0px 0px;
+	width: 400px;
+	background-color: #CCCCCC;
+	-moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
+	border: 2px solid #666666;
+	color: #000000;
+	font-family: Tahoma;
+	font-size: 10px;
+	font-weight: normal;
+	text-transform: capitalize;
+}
+
+.suggestionList {
+    margin: 0px;
+    padding: 0px;
+}
+
+.suggestionList li {
+    margin: 0px 0px 3px 0px;
+    padding: 3px;
+    cursor: pointer;
+}
+
+.suggestionList li:hover {
+	background-color: #999999;
+}
+/*********************************************************************************************************/
+/**********************************************************calendario********************************/
+
+.links_calen_1{
+	font-family: Tahoma;
+	font-size: 10px;
+	font-weight: bold;
+	color: #666666;
+	text-decoration: none;
+}
+/******************************************************fondo de las barras***************************************/
+
+.FondoDegr{
+	font-family: Tahoma;
+	font-weight: bold;
+	text-decoration: none;
+	background-image: url(../images/fondo_barra.jpg);
+	background-repeat:  repeat-x;
+}
+
+.Fondotextos{
+	font-family: Tahoma;
+	font-weight: bold;
+	text-decoration: none;
+	background-image: url(../images/fondo_menu.jpg);
+	background-repeat:  repeat-x;
+}
+
+/**************************************************CARGA SOBRE DE JVM***************/
+
+#CargaSobre {
+	position:absolute;
+	left:448px;
+	top:320px;
+	width:148px;
+	height:82px;
+	z-index:1;
+}
+/**************************************************HOJA DE ESTILO DE INVENTARIO*******************/
+
+.InvTituloIzqui
+	{
+	background-image: url(../images/InvTituloizqui.png);
+	background-repeat: no-repeat;
+	height: 25px;
+	width: 10px;
+	background-position: left;
+	}
+.InvTitulofondo
+	{
+	background-image: url(../images/InvTitulo.jpg);
+	background-repeat:  repeat-x;	
+	background-position: left;
+	}
+.InvTituloDer
+	{
+	background-image: url(../images/InvTituloDer.jpg);
+	background-repeat: no-repeat;
+	height: 25px;
+	width: 10px;
+	background-position: right;
+	}	
+.TituloInv {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	text-transform: capitalize;
+	color: #006699;
+	text-decoration: none;
+}
+
+.InvTituloUpIzq
+	{
+	background-image: url(../images/TitUpIzq.jpg);
+	background-repeat: no-repeat;
+	width: 23px;
+	height: 20px;
+	background-position: left;
+	}
+.InvTituloUpDer
+	{
+	background-image: url(../images/TitUpDere.jpg);
+	background-repeat: no-repeat;
+	width: 8px;
+	height: 20px;
+	background-position: right;
+	}
+.InvTituloUpCenter
+	{
+	background-image: url(../images/TitUpCenter.jpg);
+	background-repeat:  repeat-x;	
+	
+	}
+
+.InvUpText {
+	font-family: Tahoma;
+	font-size: 10px;
+	font-weight: normal;
+	color: #000000;
+	text-decoration: none;
+}
+.InvUpText:hover {
+	font-family: Tahoma;
+	font-size: 10px;
+	font-weight: normal;
+	color: #FF9900;
+	text-decoration: none;
+}
+.InvUpTextHover {
+	font-family: Tahoma;
+	font-size: 10px;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.InvUpTextHover:hover {
+	font-family: Tahoma;
+	font-size: 10px;
+	font-weight: normal;
+	color: #FF9900;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.InvTituloUpIzqHover
+	{
+	background-image: url(../images/TitUpIzHover.jpg);
+	background-repeat: no-repeat;
+	width: 23px;
+	height: 20px;
+	background-position: left;
+	}
+.InvTituloUpDerHover
+	{
+	background-image: url(../images/TitUpDerHover.jpg);
+	background-repeat: no-repeat;
+	width: 8px;
+	height: 20px;
+	background-position: right;
+	}
+.InvTituloUpCenterHover
+	{
+	background-image: url(../images/TitUpCenterHover.jpg);
+	background-repeat:  repeat-x;	
+	
+	}
+	
+.FondoPlata
+	{
+	background-image: url(../images/fondo_plata_2.gif);
+	background-repeat:  repeat-x;
+	border: 1px solid #bbbccd;
+	height: 20px;
+	}	
+	.FondoPlataAbjo
+	{
+	border: 1px solid #bbbccd;
+	height: 20px;
+	background-color: #EFEFEF;
+	}	
+	
+/**************************CALENDARIO NUEVO********************************************/
+.b_calendar{
+	font-family: Tahoma;
+	font-size: 10px;
+	font-weight: normal;
+	text-transform: none;
+	text-decoration: none;
+	background-image: url(../imagenes/calendario.png);
+	background-repeat: repeat-x;
+	border: thin none #E9F2FA;
+	background-position: center center;
+	height: 16px;
+	width: 15px;
+}
+/***************************************************BIOTOB*************************************/
+
+.BontonVerde
+	{
+	background-image: url(../images/invVerifVerde.png);
+	background-repeat: no-repeat;
+	width: 30px;
+	height: 30px;
+	background-position: center;
+	font-family: Tahoma;
+	font-size: 10px;
+	font-weight: bold;
+	text-decoration: none;
+	line-height: normal;
+	}
+.BontonRojo
+	{
+	background-image: url(../images/invVerifRojo.png);
+	background-repeat: no-repeat;
+	width: 30px;
+	height: 30px;
+	background-position: center;
+	font-family: Tahoma;
+	font-size: 10px;
+	font-weight: bold;
+	text-decoration: none;
+	line-height: normal;
+	}
+.BontonGris
+	{
+	background-image: url(../images/invVerifGris.png);
+	background-repeat: no-repeat;
+	width: 30px;
+	height: 30px;
+	background-position: center;
+	font-family: Tahoma;
+	font-size: 10px;
+	font-weight: bold;
+	text-decoration: none;
+	line-height: normal;
+	}
+.TitulosWinAjax{
+	font-family: Tahoma;
+	font-weight: bold;
+	text-decoration: none;
+	font-size: 12px;
+	color: #99CC00;
+}
+
+#bbdy {
+	background-color: #bfdbff;
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+/********************PARA TEXTO DE VERDADERO***********/
+.TrueInv {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #009900;
+	font-weight: bold;
+}
+
+/***********************PARA LOS FONDOS DEL LOS TITOLS***************/
+.FondoTitulosGeneral {
+	background-image: url(../images/fondo_menu.jpg);
+	background-repeat:  repeat-x;
+	background-position: center;
+}
+
+/*********************** PARA LA INFORMACION DENTRO DE LA TABLA*/
+.show_data {
+	border: thin solid #D5E7FF;
+	background-image: url(../images/fondo_menu.jpg);
+	height: 22px;
+	background-repeat: repeat-x;
+}
+/***********************PARA LAS CAJAS DESABILITADAS****************/
+.caja_negra {
+	font-family: Tahoma;
+	font-size: 9px;
+	font-weight: bold;
+	color: #999999;
+	background-color: #999999;
+	border: thin solid #f0f8ff;
+}
+/**************************CALENDARIO NUEVO********************************************/
+.b_invpo{
+	font-family: Tahoma;
+	font-size: 10px;
+	font-weight: normal;
+	text-transform: none;
+	text-decoration: none;
+	background-image: url(../images/buscar.png);
+	background-repeat: repeat-x;
+	border: thin none #E9F2FA;
+	background-position: center center;
+	height: 16px;
+	width: 16px;
+}
+/**************************************************HOJA DE ESTILO DE DE FONDO DEL DOS*******************/
+
+.DesTituloIzqui
+	{
+	background-image: url(../images/grisIzqu.png);
+	background-repeat: no-repeat;
+	height: 21px;
+	width: 10px;
+	background-position: left;
+	}
+.DesTitulofondo
+	{
+	background-image: url(../images/grisIcentro.gif);
+	background-repeat:  repeat-x;
+	background-position: center center;
+	}
+.DesTituloDer
+	{
+	background-image: url(../images/grisIDer.png);
+	background-repeat: no-repeat;
+	height: 21px;
+	width: 10px;
+	background-position: right top;
+	}
+.DesTituloInv {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	font-weight: normal;
+	text-transform: capitalize;
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.LinkText
+{
+	font-family: Tahoma;
+	font-size: 10px;
+	font-weight: normal;
+	color: #FFFFCC;
+	text-decoration: underline;
+}
+.LinkText:hover
+{
+	font-family: Tahoma;
+	font-size: 10px;
+	font-weight: normal;
+	color: #FFFFFF;
+	text-decoration: underline;
+}
+
+
+input.timespinner {
+	text-align:center;
+	font-weight:bold;
+	background:url(timespinner-time.png);
+	border:0px;
+	float:left;
+	height:20px;
+	margin-right:6px;
+	width:60px;	
+}
+button.timespinner_plus,
+button.timespinner_minus {
+	cursor:pointer;
+	border:0px;
+	height:20px;
+	width:20px;
+	margin:0px;
+	padding:0px;
+}
+button.timespinner_plus {
+	background-image: url(../imagenes/Fle12.png);	
+}
+button.timespinner_minus {
+	background-image: url(../imagenes/Fle11.png);
+}
+button.timespinner_plus:hover,
+button.timespinner_plus.active,
+button.timespinner_minus:hover,
+button.timespinner_minus.active {
+	background-position:0 20px;
+}
+
+.report {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	text-transform: capitalize;
+	color: #006699;
+	text-decoration: none;
+}

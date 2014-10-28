@@ -1,0 +1,48 @@
+/*body {
+background-color: transparent;
+font-size: 14pt;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+color:#000000; 
+}*/
+
+@page {
+/* size: 8.5in 11in;*/
+ margin-right: -10px;
+ margin-left: 0px;
+ margin-top: 0px;
+ margin-bottom: 0px;
+ 	background-color:#FFFFFF;
+	font-size:100%;	
+}
+#barramenu  { 
+display:none;}
+
+#topFrame{ 
+display:none;
+visibility:hidden;}
+
+/*#content   { 
+background-color:transparent;
+padding: 0px;
+margin: 0px;
+}
+
+a:after, a:link:after  { 
+color: #000000;
+background-color:transparent; 
+content: " * Link " attr(href) "* "; 
+}
+
+a:visited:after {
+color:#000000; 
+background-color:transparent;
+content: " * Link " attr(href) "* "; 
+}*/
+
+select {
+	display:none;
+}
+
+input {
+	display:none;
+}
