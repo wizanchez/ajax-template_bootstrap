@@ -37,6 +37,7 @@ Your public key has been saved in /Users/wizanchez/.ssh/pastelo.pub.
 The key fingerprint is:
 7d:c8:35:44:76:2c:5a:fe:8c:cb:1f:9b:27:cd:f1:c7 wizanchez@MacBook-Air-de-Wizanchez.local
 The key's randomart image is:
+
 +--[ RSA 2048]----+
 |           .+..  |
 |           oo..  |
@@ -48,6 +49,8 @@ The key's randomart image is:
 |            o .+E|
 |             .+o.|
 +-----------------+
+
+
 MacBook-Air-de-Wizanchez:pastelo wizanchez$
 
 Ahora necesitamos la llave o ver la llave con el comando cat 
